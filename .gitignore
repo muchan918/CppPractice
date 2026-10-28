@@ -1,0 +1,14 @@
+# CMake 빌드 결과물
+build/
+cmake-build-*/
+
+# macOS
+.DS_Store
+
+# 컴파일된 실행 파일 및 오브젝트 파일
+*.o
+*.obj
+*.exe
+
+# VS Code 개인 설정
+.vscode/
