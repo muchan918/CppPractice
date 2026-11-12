@@ -13,12 +13,12 @@ public:
     Complex(const Complex& c) { real = c.real, img = c.img; }
     Complex(const char* str);
 
-    Complex operator+(const Complex& c) const;
+    // Complex operator+(const Complex& c) const;
     Complex operator-(const Complex& c) const;
     Complex operator*(const Complex& c) const;
     Complex operator/(const Complex& c) const;
 
-    Complex operator+(const char* str) const;
+    // Complex operator+(const char* str) const;
     Complex operator-(const char* str) const;
     Complex operator*(const char* str) const;
     Complex operator/(const char* str) const;
@@ -34,7 +34,23 @@ public:
     {
         std::cout << "( " << real << " , " << img << " ) " << std::endl;
     }
+
+    friend Complex operator+(const Complex& a, const Complex& b);
+    friend std::ostream& operator<<(std::ostream& os, Complex& c);
 };
+
+std::ostream& operator<<(std::ostream& os, Complex& c)
+{
+    os << "(" << c.real << ", " << c.img << ")";
+    return os;
+}
+
+Complex operator+(const Complex& a, const Complex& b)
+{
+    Complex temp(a.real + b.real, a.img + b.img);
+    return temp;
+}
+
 Complex::Complex(const char* str)
 {
     // 입력 받은 문자열을 분석하여 real 부분과 img 부분을 찾아야 한다.
@@ -103,11 +119,11 @@ double Complex::get_number(const char* str, int from, int to) const
 
     return num;
 }
-Complex Complex::operator+(const Complex& c) const
-{
-    Complex temp(real + c.real, img + c.img);
-    return temp;
-}
+// Complex Complex::operator+(const Complex& c) const
+// {
+//     Complex temp(real + c.real, img + c.img);
+//     return temp;
+// }
 Complex Complex::operator-(const Complex& c) const
 {
     Complex temp(real - c.real, img - c.img);
@@ -125,11 +141,11 @@ Complex Complex::operator/(const Complex& c) const
         (img * c.real - real * c.img) / (c.real * c.real + c.img * c.img));
     return temp;
 }
-Complex Complex::operator+(const char* str) const
-{
-    Complex temp(str);
-    return (*this) + temp;
-}
+// Complex Complex::operator+(const char* str) const
+// {
+//     Complex temp(str);
+//     return (*this) + temp;
+// }
 Complex Complex::operator-(const char* str) const
 {
     Complex temp(str);
@@ -172,15 +188,22 @@ Complex& Complex::operator=(const Complex& c)
     return *this;
 }
 
+// int main()
+// {
+//     Complex a(0, 0);
+//     a = a + "-1.1 + i3.923";
+//     a.println();
+//     a = a - "1.2 -i1.823";
+//     a.println();
+//     a = a * "2.3+i22";
+//     a.println();
+//     a = a / "-12+i55";
+//     a.println();
+// }
+
 int main()
 {
     Complex a(0, 0);
-    a = a + "-1.1 + i3.923";
-    a.println();
-    a = a - "1.2 -i1.823";
-    a.println();
-    a = a * "2.3+i22";
-    a.println();
-    a = a / "-12+i55";
-    a.println();
+    a = "-1.1 + i3.923" + a;
+    std::cout << "a 의 값은 : " << a << " 이다. " << std::endl;
 }
